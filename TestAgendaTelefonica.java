@@ -7,37 +7,52 @@
  */
 public class TestAgendaTelefonica
 {
+    private int numeroTestsFallados;
 
     /**
-     * Constructor for objects of class TestArrayListInt
+     * Constructor for objects of class TestAgendaTelefonica
      */
     public TestAgendaTelefonica()
     {   
-
+        numeroTestsFallados = 0;
         
+        AgendaTelefonica agenda = new AgendaTelefonica();
         
-        AgendaTelefonica agendaTelefonica1 = new AgendaTelefonica();
-
+                
+        numeroTestsFallados += testea(null,agenda.lookupNumber("Arturo"),"lookupNumber(String name)");
         
-         
-        if ((agendaTelefonica1.lookupNumber("uno")) == null) {
-            System.out.println("No existen elementos");     
+        agenda.enterNumber("Arturo","619568459");
+        
+        agenda.enterNumber("Diego","600987654");
+        
+        numeroTestsFallados += testea("600123456",agenda.lookupNumber("Arturo"),"lookupNumber(String name)");
+        
+        numeroTestsFallados += testea(null,agenda.lookupNumber("Manuel"),"lookupNumber(String name)");
+        
 
+        if (numeroTestsFallados == 0) {
+            System.out.println("Todos los test se han pasado correctamente!!");
         }
+        else {
+            System.out.println("Han fallado " + numeroTestsFallados + " tests!!!");
+        }
+    }
 
+    /**
+     * Método para testear la clase AgendaTelefonica
+     */
+    public int testea(Object valorEsperado, Object valorObtenido, String nombreMetodo){
+        int valorDevuelto = 0;
+        if (valorEsperado == valorObtenido) {
+            System.out.println("OK: " + nombreMetodo);
+        }
+        else {
+            System.out.println("ERROR!!!!! " + nombreMetodo);
+            System.out.println("Valor obtenido: " + valorObtenido + 
+                " / Valor esperado: " + valorEsperado);
+            valorDevuelto = 1;
+        }
+        return valorDevuelto;
         
-        agendaTelefonica1.enterNumber("uno", "primero");
-        if ((agendaTelefonica1.lookupNumber("uno")) != null) {
-            System.out.println("se ha encontrado");     
-
-        }
-
-        AgendaTelefonica agendaTelefonica2 = new AgendaTelefonica();
-        agendaTelefonica2.enterNumber("uno", "primero");
-        if ((agendaTelefonica2.lookupNumber("dos")) == null) {
-            System.out.println("Error no se ha encontrado");     
-
-        }
-
     }
 }
